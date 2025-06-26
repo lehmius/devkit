@@ -12,7 +12,7 @@ jobs:
                 docker login --username lehmius --password ${{ secrets.GHCR_PAT }} ghcr.io
             - name: Build and push base image
               run: |
-                docker build base/ --tag ghcr.io/lehmius/basedev:latest --file Containerfile
+                docker build base/ --tag ghcr.io/lehmius/basedev:latest --file base/Containerfile
                 docker push ghcr.io/lehmius/basedev:latest
             - name: Build and push dependent images
               run: |
