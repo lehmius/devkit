@@ -1,0 +1,21 @@
+ARG USER = "clajus"
+FROM opensuse/distrobox:latest
+RUN zypper --non-interactive install --no-recommends \
+    git \
+    git-credential-libsecret \
+    nushell \
+    starship \
+    bat \
+    ripgrep \
+    zoxide \
+    fzf \
+    neovim \
+    atuin \
+    && zypper clean
+# Mount coniguration files.
+VOLUME ~/.config/nvim:/home/$USER/.config/nvim
+VOLUME ~/.config/nu:/home/$USER/.config/nu
+VOLUME ~/.config/starship:/home/$USER/.config/starship
+VOLUME ~/.config/atuin:/home/$USER/.config/atuin
+# Set nushell as default shell
+RUN chsh -s /urs/bin/nu $USER

@@ -1,0 +1,23 @@
+name: Build and Push to GHCR
+on: [push]
+jobs:
+    build_and_publish:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            
+            - name: Login to GHCR
+              run: |
+                docker login --username lehmius --password ${{ secrets.GHCR_PAT }}
+            - name: Build and push base image
+              run: |
+                docker build base/ --tag ghcr.io/lehmius/basedev:latest --file Containerfile
+                docker push ghcr.io/lehmius/basedev:latest
+            - name: Build and push dependent images
+              run: |
+                for dir in images/*; do
+                    name=$(basename "$dir")
+                    echo "Building image: $name"
+                    docker build "$dir" --tag "ghcr.io/lehmius/$name:latest" --file "$dir/Containerfile"
+                    docker push "ghcr.io/lehmius/$name:latest"
