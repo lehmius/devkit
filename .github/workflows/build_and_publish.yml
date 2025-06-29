@@ -21,3 +21,4 @@ jobs:
                     echo "Building image: $name"
                     docker build "$dir" --tag "ghcr.io/lehmius/$name:latest" --file "$dir/Containerfile"
                     docker push "ghcr.io/lehmius/$name:latest"
+                done
