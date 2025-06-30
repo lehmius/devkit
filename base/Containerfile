@@ -11,6 +11,7 @@ RUN zypper --non-interactive install --no-recommends \
     neovim \
     atuin \
     && zypper clean
+RUN zypper --non-interactive install --no-recommends -t pattern devel_basis && zypper clean
 # Mount coniguration files.
 VOLUME ~/.config/nvim:/home/$USER/.config/nvim
 VOLUME ~/.config/starship:/home/$USER/.config/starship
