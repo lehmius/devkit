@@ -1,4 +1,3 @@
-ARG USER="clajus"
 FROM registry.opensuse.org/opensuse/distrobox:latest
 RUN zypper --non-interactive install --no-recommends \
     git \
